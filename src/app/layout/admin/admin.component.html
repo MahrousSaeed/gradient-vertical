@@ -1,0 +1,110 @@
+<div id="pcoded" class="pcoded" [attr.nav-type]="navType" [attr.theme-layout]="themeLayout"
+  [attr.vertical-placement]="verticalPlacement" [attr.vertical-layout]="verticalLayout"
+  [attr.pcoded-device-type]="pcodedDeviceType" [attr.vertical-nav-type]="verticalNavType"
+  [attr.vertical-effect]="verticalEffect" [attr.vnavigation-view]="vnavigationView" [attr.fream-type]="freamType"
+  [attr.sidebar-img]="sidebarImg" [attr.sidebar-img-type]="sidebarImgType" [attr.layout-type]="layoutType"
+  (window:resize)="onResize($event)">
+  <div class="pcoded-overlay-box"></div>
+  <div class="pcoded-container navbar-wrapper">
+
+    <!-- top navbar ma77 -->
+    <app-navbar 
+      [HeaderTheme]="headerTheme"
+      [PcodedHeaderPosition]="pcodedHeaderPosition"
+      [VerticalEffect]="verticalEffect"
+      [NavRight]="navRight"
+      [VerticalNavType]="verticalNavType"
+      (VerticalNavTypeEvent)="recieveVerticalNavType($event)"
+      ></app-navbar>
+    <!-- End top navbar  -->
+
+    <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin">
+      <div class="pcoded-wrapper">
+        <!-- Start sidebar  -->
+        <nav id="main_navbar" class="pcoded-navbar" (clickOutside)="onClickedOutsideSidebar($event)"
+          [exclude]="'#mobile-collapse'" [attr.pcoded-header-position]="pcodedHeaderPosition"
+          [attr.navbar-theme]="navBarTheme" [attr.active-item-theme]="activeItemTheme" sub-item-theme="theme2"
+          active-item-style="style0" [attr.pcoded-navbar-position]="pcodedSidebarPosition">
+
+          <div class="pcoded-inner-navbar main-menu" appAccordion>
+            <perfect-scrollbar [style.max-width]="'235px'" [style.max-height]="sidebarFixedHeight" [config]="config">
+              <span class="d-color">
+                <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">category label</div>
+                <ul class="pcoded-item pcoded-left-item" [attr.item-border]="itemBorder"
+                  [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder" appAccordionLink>
+                  
+                  <!-- <li [routerLinkActive]="['active']" *ngFor="let asideItem of menuItems.getAll()"
+                    class="pcoded-hasmenu" [attr.dropdown-icon]="dropDownIcon" [attr.subitem-icon]="subItemIcon"
+                    appAccordionLink>
+                    <a [routerLinkActive]="['active']" href="javascript:;" appAccordionToggle>
+                      <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i></span>
+                      <span class="pcoded-mtext">{{ asideItem.name }}</span>
+                      <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                      <ng-template ngFor let-asideChildren [ngForOf]="asideItem.children">
+                        <li  >
+                          <a [routerLink]="['/',asideItem.route]">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext">{{ asideChildren.name }} </span>
+                            <span class="pcoded-mcaret"></span>
+                          </a>
+                        </li>
+
+                      </ng-template>
+                    </ul>
+                  </li> -->
+
+                  <li  [routerLinkActive]="['active']"  *ngFor="let item of sidebarMenu"  appAccordionLink>
+                    <a [routerLink]="['/',item.path]" href="javascript:;" appAccordionToggle>
+                      <span class="pcoded-micon"><i class="{{item.data.icon}}"></i></span>
+                      <span class="pcoded-mtext">{{item.data.title}}</span>
+                      <span class="pcoded-mcaret"></span>
+                    </a>
+                  </li>
+                </ul>
+              </span>
+
+            </perfect-scrollbar>
+          </div>
+
+        </nav>
+        <!-- End sidebar  -->
+        <!-- app content  -->
+        <div class="pcoded-content">
+          <div class="pcoded-inner-content">
+            <!-- Main-body start -->
+            <div class="main-body">
+              <div class="page-wrapper">
+                <router-outlet>
+                  <app-title></app-title>
+                  <app-breadcrumbs></app-breadcrumbs>
+                  <app-spinner></app-spinner>
+                </router-outlet>
+              </div>
+            </div>
+            <!-- settings start -->
+            <app-settings (navBarThemeEvent)="receiveNavBarThemeEvent($event)" 
+              (imageEvent)="receiveImageEvent($event)"
+              (headerPositionEvent)="receiveHeaderPositionEvent($event)"
+              (headerFixedMarginEvent)="receiveHeaderFixedMarginEvent($event)"
+              (sidebarPositionEvent)="receiveSidebarPositionEvent($event)"
+              (sidebarFixedHeightEvent)="receiveSidebarFixedHeightEvent($event)"
+              (verticalLayoutEvent)="receiveVerticalLayoutEvent($event)"
+              (menuTitleThemeEvent)="receiveMenuTitleThemeEvent($event)"
+              (headerThemeEvent)="receiveHeaderThemeEvent($event)" 
+              (navTypeEvent)="receiveNavTypeEvent($event)"
+              (activeItemThemeEvent)="receiveActiveItemTheme($event)"
+              (sidebarImgTypeEvent)="receiveSidebarImgType($event)"
+              (itemBorderStyleEvent)="receiveItemBorderStyle($event)"
+              (verticalEffectEvent)="receiveVerticalEffect($event)" 
+              (dropDownIconEvent)="receiveDropDownIcon($event)"
+              (subItemIconEvent)="receiveSubItemIcon($event)">
+            </app-settings>
+            <!-- settings start -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
